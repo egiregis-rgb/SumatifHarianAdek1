@@ -1,0 +1,769 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Buku Latihan Soal - Kelas 1</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Patrick+Hand&family=Nunito:wght@400;600;700;800&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --paper:#FFFDF6;
+    --line:#CFE0EE;
+    --margin:#F4A6A0;
+    --ink:#2E2A25;
+    --seni:#F2994A;
+    --pai:#2F9E44;
+    --indo:#4C6EF5;
+    --mtk:#9C6ADE;
+    --pkn:#E0483F;
+    --gold:#E8B93A;
+  }
+  *{box-sizing:border-box;}
+  body{
+    margin:0;
+    font-family:'Nunito', sans-serif;
+    color:var(--ink);
+    background:
+      repeating-linear-gradient(var(--paper) 0px, var(--paper) 27px, var(--line) 28px),
+      var(--paper);
+    background-attachment:local;
+    min-height:100vh;
+    padding:0;
+  }
+  .margin-rule{
+    position:fixed;
+    top:0; bottom:0; left:52px;
+    width:2px;
+    background:var(--margin);
+    opacity:.55;
+    z-index:0;
+  }
+  .spine{
+    position:fixed;
+    top:0; bottom:0; left:0;
+    width:34px;
+    background:repeating-linear-gradient(180deg, #EDE7D9 0 22px, #DDD3BC 22px 24px);
+    box-shadow: 2px 0 6px rgba(0,0,0,0.08);
+    z-index:1;
+  }
+  .spine .hole{
+    position:absolute; left:9px; width:16px; height:16px; border-radius:50%;
+    background:var(--paper);
+    box-shadow: inset 0 2px 3px rgba(0,0,0,0.25);
+  }
+  .wrap{
+    position:relative;
+    z-index:2;
+    max-width:880px;
+    margin:0 auto;
+    padding:36px 40px 80px 76px;
+  }
+  h1.title{
+    font-family:'Patrick Hand', cursive;
+    font-size:2.6rem;
+    margin:0 0 4px 0;
+    color:var(--ink);
+    line-height:1.05;
+  }
+  .subtitle{
+    font-size:1.05rem;
+    color:#6b6459;
+    margin-bottom:28px;
+  }
+  /* ---- landing screen ---- */
+  .cover{
+    background:#fff;
+    border:2px solid #E8E1D2;
+    border-radius:10px;
+    padding:36px 32px;
+    box-shadow:0 8px 0 -3px #E8E1D2, 0 3px 10px rgba(0,0,0,.06);
+    text-align:center;
+  }
+  .cover .stamp{
+    display:inline-block;
+    font-family:'Patrick Hand', cursive;
+    font-size:1.4rem;
+    color:var(--pkn);
+    border:3px solid var(--pkn);
+    border-radius:50%;
+    padding:14px 18px;
+    transform:rotate(-8deg);
+    margin-bottom:18px;
+  }
+  .name-field{
+    margin:24px auto 8px auto;
+    max-width:420px;
+    text-align:left;
+  }
+  .name-field label{
+    display:block;
+    font-weight:700;
+    margin-bottom:6px;
+  }
+  input[type=text]{
+    width:100%;
+    font-family:'Nunito', sans-serif;
+    font-size:1.1rem;
+    padding:12px 14px;
+    border:2px solid #d8d0bf;
+    border-bottom:3px solid var(--seni);
+    border-radius:8px;
+    background:#FFFEFB;
+  }
+  input[type=text]:focus{outline:none; border-color:var(--seni);}
+  .btn{
+    font-family:'Nunito', sans-serif;
+    font-weight:800;
+    font-size:1.02rem;
+    border:none;
+    border-radius:10px;
+    padding:13px 26px;
+    cursor:pointer;
+    color:#fff;
+    background:var(--seni);
+    box-shadow:0 4px 0 rgba(0,0,0,.15);
+    transition:transform .08s ease;
+  }
+  .btn:hover{transform:translateY(-1px);}
+  .btn:active{transform:translateY(2px); box-shadow:0 1px 0 rgba(0,0,0,.15);}
+  .btn.secondary{background:#8b8578;}
+  .btn-row{margin-top:22px; display:flex; gap:14px; justify-content:center; flex-wrap:wrap;}
+
+  .hidden{display:none !important;}
+
+  /* ---- tabs ---- */
+  .tabbar{
+    display:flex;
+    gap:8px;
+    flex-wrap:wrap;
+    margin-bottom:22px;
+  }
+  .tab-btn{
+    font-family:'Patrick Hand', cursive;
+    font-size:1.15rem;
+    padding:10px 18px 8px 18px;
+    border:2px solid transparent;
+    border-bottom:none;
+    border-radius:10px 10px 0 0;
+    background:#EFE9DA;
+    color:#7a7568;
+    cursor:pointer;
+    position:relative;
+    top:2px;
+  }
+  .tab-btn.active{
+    background:#fff;
+    border-color:#E8E1D2;
+    color:var(--ink);
+  }
+  .tab-btn .dot{
+    display:inline-block; width:8px; height:8px; border-radius:50%;
+    margin-right:6px; vertical-align:middle;
+  }
+  .tab-btn.done::after{
+    content:"✓";
+    margin-left:6px;
+    color:#2F9E44;
+    font-family:'Nunito',sans-serif;
+    font-weight:800;
+  }
+
+  .sheet{
+    background:#fff;
+    border:2px solid #E8E1D2;
+    border-radius:0 10px 10px 10px;
+    padding:28px 30px;
+    box-shadow:0 8px 0 -3px #E8E1D2, 0 3px 10px rgba(0,0,0,.06);
+  }
+  .sheet-head{
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    flex-wrap:wrap;
+    gap:10px;
+    border-bottom:2px dashed #e4ddcc;
+    padding-bottom:14px;
+    margin-bottom:22px;
+  }
+  .sheet-head h2{
+    font-family:'Patrick Hand', cursive;
+    font-size:1.9rem;
+    margin:0;
+  }
+  .badge{
+    font-weight:800;
+    font-size:.82rem;
+    padding:5px 12px;
+    border-radius:999px;
+    color:#fff;
+  }
+  .section-label{
+    font-weight:800;
+    font-size:1.05rem;
+    margin:22px 0 12px 0;
+    padding:6px 14px;
+    display:inline-block;
+    border-radius:6px;
+    color:#fff;
+  }
+  .qcard{
+    padding:16px 16px 18px 16px;
+    margin-bottom:14px;
+    border:1.5px solid #ECE6D8;
+    border-radius:10px;
+    background:#FFFEFB;
+  }
+  .qnum{
+    font-weight:800;
+    margin-right:6px;
+  }
+  .qtext{
+    font-size:1.03rem;
+    margin-bottom:10px;
+    line-height:1.5;
+  }
+  .qimg{
+    font-size:2.1rem;
+    margin:4px 0 10px 0;
+    letter-spacing:6px;
+  }
+  .qimg svg{ vertical-align:middle; margin-right:10px;}
+  .options{
+    display:grid;
+    gap:8px;
+  }
+  .opt{
+    display:flex;
+    align-items:center;
+    gap:10px;
+    padding:9px 12px;
+    border:1.5px solid #E3DCCB;
+    border-radius:8px;
+    cursor:pointer;
+    background:#fff;
+    font-size:.98rem;
+  }
+  .opt:hover{background:#FBF8F0;}
+  .opt input{margin:0;}
+  .opt.correct{
+    background:#EAF7EC;
+    border-color:#2F9E44;
+  }
+  .opt.wrong{
+    background:#FDECEA;
+    border-color:#E0483F;
+  }
+  .short-answer input{
+    width:100%;
+    max-width:420px;
+    padding:10px 12px;
+    border:1.5px solid #E3DCCB;
+    border-radius:8px;
+    font-family:'Nunito',sans-serif;
+    font-size:1rem;
+  }
+  .key-box{
+    margin-top:10px;
+    font-size:.92rem;
+    padding:8px 12px;
+    border-radius:8px;
+    display:none;
+  }
+  .key-box.show{display:block;}
+  .key-ok{background:#EAF7EC; color:#256D34;}
+  .key-bad{background:#FDECEA; color:#9E3129;}
+
+  .result-box{
+    display:none;
+    text-align:center;
+    padding:30px 20px;
+    border-radius:12px;
+    margin-bottom:24px;
+    color:#fff;
+  }
+  .result-box.show{display:block;}
+  .result-score{
+    font-family:'Patrick Hand', cursive;
+    font-size:3.4rem;
+    margin:6px 0;
+  }
+  .result-name{
+    font-weight:800;
+    font-size:1.15rem;
+  }
+  .result-msg{
+    font-size:1.05rem;
+    margin-top:6px;
+  }
+  .stars{ font-size:1.6rem; margin-top:6px;}
+
+  .submit-row{
+    margin-top:24px;
+    text-align:center;
+  }
+  footer.note{
+    text-align:center;
+    color:#9a927f;
+    font-size:.85rem;
+    margin-top:30px;
+  }
+  @media(max-width:600px){
+    .wrap{padding:26px 18px 60px 56px;}
+    h1.title{font-size:2rem;}
+    .tab-btn{font-size:1rem; padding:8px 12px 6px 12px;}
+  }
+</style>
+</head>
+<body>
+<div class="spine" id="spine"></div>
+<div class="margin-rule"></div>
+
+<div class="wrap">
+  <h1 class="title">Buku Latihan Soal — Kelas 1</h1>
+  <div class="subtitle">Seni Rupa • Pendidikan Agama Islam • Bahasa Indonesia • Matematika • Pendidikan Pancasila</div>
+
+  <!-- COVER / NAME INPUT -->
+  <div class="cover" id="cover">
+    <div class="stamp">Ayo<br>Belajar!</div>
+    <div style="font-size:1.1rem; max-width:480px; margin:0 auto;">
+      Sebelum mulai mengerjakan, tuliskan dulu namamu ya! Setiap bab punya 20 soal pilihan ganda dan 10 soal isian singkat.
+    </div>
+    <div class="name-field">
+      <label for="nameInput">Nama Siswa/Siswi</label>
+      <input type="text" id="nameInput" placeholder="Tulis namamu di sini...">
+    </div>
+    <div class="btn-row">
+      <button class="btn" onclick="startApp()">Mulai Mengerjakan</button>
+    </div>
+  </div>
+
+  <!-- MAIN APP -->
+  <div id="appArea" class="hidden">
+    <div class="tabbar" id="tabbar"></div>
+    <div id="sheetArea"></div>
+  </div>
+
+  <footer class="note">Dibuat berdasarkan rangkuman materi Kelas 1 — semangat belajar! 🌟</footer>
+</div>
+
+<script>
+/* ---------------- SPINE HOLES ---------------- */
+(function(){
+  const spine = document.getElementById('spine');
+  for(let y=40; y<3000; y+=70){
+    const h = document.createElement('div');
+    h.className='hole';
+    h.style.top = y+'px';
+    spine.appendChild(h);
+  }
+})();
+
+/* ---------------- DATA ---------------- */
+// helper svg shapes for Seni Rupa
+const shp = {
+  lingkaran: '<svg width="40" height="40"><circle cx="20" cy="20" r="16" fill="none" stroke="#2E2A25" stroke-width="3"/></svg>',
+  oval: '<svg width="46" height="34"><ellipse cx="23" cy="17" rx="20" ry="12" fill="none" stroke="#2E2A25" stroke-width="3"/></svg>',
+  segitiga: '<svg width="42" height="38"><polygon points="21,4 40,34 2,34" fill="none" stroke="#2E2A25" stroke-width="3"/></svg>',
+  persegi: '<svg width="38" height="38"><rect x="4" y="4" width="30" height="30" fill="none" stroke="#2E2A25" stroke-width="3"/></svg>',
+  persegipanjang: '<svg width="50" height="32"><rect x="4" y="4" width="42" height="24" fill="none" stroke="#2E2A25" stroke-width="3"/></svg>',
+  belahketupat: '<svg width="40" height="40"><polygon points="20,3 37,20 20,37 3,20" fill="none" stroke="#2E2A25" stroke-width="3"/></svg>',
+  trapesium: '<svg width="46" height="34"><polygon points="12,4 34,4 44,30 2,30" fill="none" stroke="#2E2A25" stroke-width="3"/></svg>',
+  jajargenjang: '<svg width="48" height="34"><polygon points="14,4 46,4 34,30 2,30" fill="none" stroke="#2E2A25" stroke-width="3"/></svg>',
+  segilima: '<svg width="40" height="38"><polygon points="20,3 37,15 30,35 10,35 3,15" fill="none" stroke="#2E2A25" stroke-width="3"/></svg>',
+  segienam: '<svg width="42" height="38"><polygon points="12,3 30,3 40,19 30,35 12,35 2,19" fill="none" stroke="#2E2A25" stroke-width="3"/></svg>',
+  garislurus: '<svg width="60" height="20"><line x1="4" y1="10" x2="56" y2="10" stroke="#2E2A25" stroke-width="3"/></svg>',
+  garisdiagonal: '<svg width="50" height="40"><line x1="6" y1="6" x2="44" y2="34" stroke="#2E2A25" stroke-width="3"/></svg>',
+  garislengkung: '<svg width="60" height="30"><path d="M4,24 Q30,-6 56,24" fill="none" stroke="#2E2A25" stroke-width="3"/></svg>',
+  spiral: '<svg width="40" height="40" viewBox="0 0 40 40"><path d="M20,20 m-2,0 a2,2 0 1,0 4,0 a6,6 0 1,0 -8,0 a10,10 0 1,0 16,0 a14,14 0 1,0 -20,0" fill="none" stroke="#2E2A25" stroke-width="2.5"/></svg>',
+};
+
+const SUBJECTS = [
+  {
+    id:'seni', name:'Seni Rupa', color:'var(--seni)',
+    subtitle:'Rangkuman Bab 1 — Garis, Bentuk, dan Kolase',
+    mc:[
+      {q:'Garis dibagi menjadi berapa macam?', opts:['2 macam','3 macam','4 macam','5 macam'], ans:1},
+      {q:'Garis miring disebut juga garis...', opts:['lurus','diagonal','lengkung','spiral'], ans:1},
+      {q:'Manakah yang termasuk contoh garis lengkung?', img:shp.spiral, opts:['garis lurus ke samping','garis lurus ke atas','bentuk spiral','garis miring'], ans:2},
+      {q:'Bentuk teratur disebut juga bentuk...', opts:['organik','geometris','abstrak','alami'], ans:1},
+      {q:'Bentuk tidak teratur disebut juga bentuk...', opts:['geometris','organik','simetris','teratur'], ans:1},
+      {q:'Ciri bentuk geometris adalah...', opts:['berubah-ubah','tetap dan dapat diukur','tidak beraturan','tidak dapat diukur'], ans:1},
+      {q:'Bentuk apakah pada gambar ini?', img:shp.lingkaran, opts:['awan','lingkaran','petir','api'], ans:1},
+      {q:'Manakah contoh bentuk organik?', opts:['segitiga','lingkaran','awan','persegi'], ans:2},
+      {q:'Bentuk yang memiliki 4 sisi sama panjang disebut...', img:shp.persegi, opts:['segitiga','persegi','lingkaran','oval'], ans:1},
+      {q:'Bentuk bulat telur pada gambar disebut...', img:shp.oval, opts:['lingkaran','oval','segitiga','trapesium'], ans:1},
+      {q:'Bentuk dengan 3 sisi disebut...', img:shp.segitiga, opts:['segiempat','segitiga','segilima','segienam'], ans:1},
+      {q:'Bentuk seperti berlian pada gambar disebut...', img:shp.belahketupat, opts:['trapesium','belah ketupat','jajar genjang','segienam'], ans:1},
+      {q:'Roda sepeda pada umumnya berbentuk...', opts:['segitiga','lingkaran','persegi','oval'], ans:1},
+      {q:'Potongan pizza biasanya berbentuk...', opts:['lingkaran','segitiga','oval','persegi'], ans:1},
+      {q:'Kolase dibuat dengan teknik...', opts:['melipat','menggunting saja','menempel','menggambar'], ans:2},
+      {q:'Bahan berikut yang TIDAK dapat digunakan untuk kolase adalah...', opts:['kertas origami','biji-bijian','air','daun kering'], ans:2},
+      {q:'Langkah pertama membuat kolase adalah...', opts:['menempel potongan','menggunting origami','menyiapkan alat dan bahan','menghias kolase'], ans:2},
+      {q:'Manakah yang termasuk contoh bentuk tidak teratur?', opts:['petir','segienam','trapesium','lingkaran'], ans:0},
+      {q:'Bentuk cermin pada contoh benda di rangkuman adalah...', img:shp.oval, opts:['oval','segitiga','persegi panjang','segienam'], ans:0},
+      {q:'Bentuk jam dinding pada contoh benda di rangkuman adalah...', img:shp.persegi, opts:['lingkaran','persegi','oval','segitiga'], ans:1},
+    ],
+    short:[
+      {q:'Sebutkan 3 macam garis!', ans:'lurus, diagonal, lengkung', accept:['lurus','diagonal','lengkung']},
+      {q:'Bentuk teratur disebut juga bentuk...?', ans:'geometris', accept:['geometris']},
+      {q:'Bentuk tidak teratur disebut juga bentuk...?', ans:'organik', accept:['organik']},
+      {q:'Sebutkan 1 contoh bentuk geometris!', ans:'lingkaran / segitiga / persegi / oval (contoh lain juga benar)', accept:['lingkaran','segitiga','persegi','oval','trapesium','belah ketupat','jajar genjang','segilima','segienam']},
+      {q:'Sebutkan 1 contoh bentuk organik!', ans:'awan / petir / api / daun / air / bunga', accept:['awan','petir','api','daun','air','bunga','angin','kembang api','slime']},
+      {q:'Kolase adalah karya seni yang dibuat dengan teknik...?', ans:'tempel', accept:['tempel']},
+      {q:'Sebutkan 2 bahan untuk membuat kolase!', ans:'kertas origami, biji-bijian, kain, potongan majalah, daun kering (sebutkan 2)', accept:['origami','biji','kain','majalah','daun']},
+      {q:'Bentuk apa yang dimiliki roda sepeda?', ans:'lingkaran', accept:['lingkaran']},
+      {q:'Alat apa yang digunakan untuk memotong origami saat membuat kolase?', ans:'gunting', accept:['gunting']},
+      {q:'Sebutkan bentuk yang memiliki 6 sisi!', ans:'segi enam', accept:['segi enam','segienam']},
+    ]
+  },
+  {
+    id:'pai', name:'PAI (Bab 1 & 2)', color:'var(--pai)',
+    subtitle:'Huruf Hijaiyah, Harakat, Al-Fatihah & Iman Kepada Allah',
+    mc:[
+      {q:'Huruf hijaiyah terdapat dalam kitab...', opts:['Injil','Al-Qur\'an','Taurat','Zabur'], ans:1},
+      {q:'Jumlah huruf hijaiyah ada...', opts:['26','28','29','30'], ans:2},
+      {q:'Huruf hijaiyah disebut juga huruf...', opts:['latin','arab','angka','romawi'], ans:1},
+      {q:'Harakat adalah tanda baca pada huruf...', opts:['latin','hijaiyah','angka','romawi'], ans:1},
+      {q:'Harakat ada berapa macam?', opts:['2','3','4','5'], ans:1},
+      {q:'Fathah berada di... huruf.', opts:['atas','bawah','samping','tengah'], ans:0},
+      {q:'Fathah dibaca...', opts:['i','u','a','e'], ans:2},
+      {q:'Kasrah berada di... huruf.', opts:['atas','bawah','samping','tengah'], ans:1},
+      {q:'Kasrah dibaca...', opts:['a','i','u','e'], ans:1},
+      {q:'Dammah dibaca...', opts:['a','i','u','e'], ans:2},
+      {q:'Huruf ج jika diberi harakat fathah dibaca...', opts:['ji','ja','ju','jha'], ans:1},
+      {q:'Surah Al-Fatihah berjumlah... ayat.', opts:['5','6','7','8'], ans:2},
+      {q:'Al-Fatihah artinya...', opts:['penutup','pembukaan','pertengahan','pertanyaan'], ans:1},
+      {q:'Surah Al-Fatihah disebut juga...', opts:['Ummul Qur\'an','Induk hadits','Akhir Qur\'an','Surah pendek'], ans:0},
+      {q:'Surah Al-Fatihah wajib dibaca ketika...', opts:['makan','tidur','shalat','bermain'], ans:2},
+      {q:'Iman artinya...', opts:['takut','percaya','ragu','lupa'], ans:1},
+      {q:'Rukun iman ada...', opts:['4','5','6','7'], ans:2},
+      {q:'Al-Khaliq artinya...', opts:['Maha Pengasih','Maha Pencipta','Maha Penyayang','Maha Adil'], ans:1},
+      {q:'Al-Ahad artinya...', opts:['Esa/satu','kuat','kekal','suci'], ans:0},
+      {q:'Manakah yang termasuk ciptaan Allah?', opts:['kursi','mobil','matahari ☀️','buku'], ans:2},
+    ],
+    short:[
+      {q:'Kitab suci umat Islam adalah...?', ans:'Al-Qur\'an', accept:["qur'an","quran","al-qur'an","al quran"]},
+      {q:'Berapa jumlah huruf hijaiyah?', ans:'29', accept:['29']},
+      {q:'Sebutkan 3 macam harakat!', ans:'fathah, kasrah, dammah', accept:['fathah','kasrah','dammah']},
+      {q:'Harakat fathah dibaca...?', ans:'a', accept:['a']},
+      {q:'Surah Al-Fatihah berjumlah berapa ayat?', ans:'7', accept:['7','tujuh']},
+      {q:'Apa arti Surah Al-Fatihah?', ans:'pembukaan', accept:['pembukaan']},
+      {q:'Apa arti iman?', ans:'percaya', accept:['percaya']},
+      {q:'Ada berapa rukun iman?', ans:'6', accept:['6','enam']},
+      {q:'Apa arti Al-Khaliq?', ans:'Maha Pencipta', accept:['maha pencipta','pencipta']},
+      {q:'Sebutkan 1 contoh perilaku beriman kepada Allah!', ans:'shalat / menolong teman / membaca Al-Qur\'an / bersyukur / sabar', accept:['shalat','menolong','al-qur','quran','bersyukur','sabar']},
+    ]
+  },
+  {
+    id:'indo', name:'Bahasa Indonesia', color:'var(--indo)',
+    subtitle:'Rangkuman Bab 2 — Menyimak, Tanda Baca, dan Suku Kata',
+    mc:[
+      {q:'Menyimak berarti...', opts:['berbicara','mendengarkan dengan saksama','menulis','membaca'], ans:1},
+      {q:'Sikap yang baik saat menyimak adalah...', opts:['berisik','duduk dengan tenang','berlari-lari','bermain hp'], ans:1},
+      {q:'Tanda tanya digunakan untuk kalimat...', opts:['perintah','tanya','ajakan','larangan'], ans:1},
+      {q:'Tanda seru digunakan untuk kalimat, KECUALI kalimat...', opts:['ajakan','perintah','larangan','tanya'], ans:3},
+      {q:'Manakah kata tanya yang tepat?', opts:['ayo','siapa','jangan','mari'], ans:1},
+      {q:'Kalimat ajakan menggunakan kata...', opts:['jangan','ayo / mari','apa','kapan'], ans:1},
+      {q:'Kalimat perintah menggunakan akhiran...', opts:['-kan / -lah','-nya','-an','-kah'], ans:0},
+      {q:'Kalimat larangan menggunakan kata...', opts:['ayo','mari','jangan','siapa'], ans:2},
+      {q:'"Bacalah buku itu!" adalah kalimat...', opts:['tanya','perintah','ajakan','larangan'], ans:1},
+      {q:'"Ayo kita belajar bersama!" adalah kalimat...', opts:['tanya','perintah','ajakan','larangan'], ans:2},
+      {q:'"Jangan membuang sampah sembarangan!" adalah kalimat...', opts:['tanya','ajakan','larangan','perintah'], ans:2},
+      {q:'Kata berikut yang diawali suku kata "ha-" adalah...', img:'🐯', opts:['hujan','harimau','hewan','hotel'], ans:1},
+      {q:'Kata berikut yang diawali suku kata "hi-" adalah...', opts:['hitam','hujan','hewan','hotel'], ans:0},
+      {q:'Kata berikut yang diawali suku kata "hu-" adalah...', img:'🌧️', opts:['hitam','hujan','hewan','hotel'], ans:1},
+      {q:'Kata berikut yang diawali suku kata "he-" adalah...', opts:['hitam','hujan','hewan','hotel'], ans:2},
+      {q:'Kata berikut yang diawali suku kata "ho-" adalah...', opts:['hitam','hujan','hewan','hotel'], ans:3},
+      {q:'Kata berikut yang diawali suku kata "ca-" adalah...', img:'🌶️', opts:['cermin','cabai','celana','cokelat'], ans:1},
+      {q:'Kata berikut yang diawali suku kata "ce-" adalah...', opts:['cabai','cangkir','cermin','cobek'], ans:2},
+      {q:'Kata berikut yang diawali suku kata "co-" adalah...', img:'🍫', opts:['cabai','cermin','cokelat','celana'], ans:2},
+      {q:'"Kapan Ibu berangkat ke pasar?" diakhiri dengan tanda...', opts:['seru','tanya','titik','koma'], ans:1},
+    ],
+    short:[
+      {q:'Apa arti menyimak?', ans:'mendengarkan dengan saksama', accept:['mendengarkan']},
+      {q:'Sebutkan 1 sikap baik saat menyimak!', ans:'duduk tenang / menghadap pembicara / tidak berisik / mencatat hal penting', accept:['duduk','tenang','menghadap','tidak berisik','mencatat']},
+      {q:'Tanda apa yang digunakan untuk kalimat tanya?', ans:'tanda tanya (?)', accept:['tanya','?']},
+      {q:'Tanda apa yang digunakan untuk kalimat perintah?', ans:'tanda seru (!)', accept:['seru','!']},
+      {q:'Sebutkan 1 kata tanya!', ans:'apa / di mana / kapan / siapa / mengapa / bagaimana', accept:['apa','di mana','kapan','siapa','mengapa','bagaimana']},
+      {q:'Sebutkan 1 contoh kata yang diawali "hu-"!', ans:'hujan', accept:['hujan']},
+      {q:'Sebutkan 1 contoh kata yang diawali "ca-"!', ans:'cabai / cangkir', accept:['cabai','cangkir']},
+      {q:'Akhiran apa yang digunakan pada kalimat perintah?', ans:'-kan atau -lah', accept:['kan','lah']},
+      {q:'Kata apa yang digunakan pada kalimat larangan?', ans:'jangan', accept:['jangan']},
+      {q:'Sebutkan 1 contoh kata yang diawali "ho-"!', ans:'hotel', accept:['hotel']},
+    ]
+  },
+  {
+    id:'mtk', name:'Matematika', color:'var(--mtk)',
+    subtitle:'Rangkuman Bab 2 — Penjumlahan dan Pengurangan sampai 10',
+    mc:[
+      {q:'4 + 2 = ...', opts:['5','6','7','8'], ans:1},
+      {q:'5 + 3 = ...', opts:['7','8','9','10'], ans:1},
+      {q:'8 + 2 = ...', opts:['9','10','11','12'], ans:1},
+      {q:'3 + 7 = ...', opts:['9','10','11','8'], ans:1},
+      {q:'2 + 2 = ...', opts:['3','4','5','6'], ans:1},
+      {q:'4 + 4 = ...', opts:['6','7','8','9'], ans:2},
+      {q:'3 + 3 = ...', opts:['5','6','7','8'], ans:1},
+      {q:'5 + 5 = ...', opts:['8','9','10','11'], ans:2},
+      {q:'3 + ... = 4, angka yang tepat untuk melengkapi adalah...', opts:['0','1','2','3'], ans:1},
+      {q:'6 - 2 = ...', opts:['3','4','5','6'], ans:1},
+      {q:'7 - 2 = ...', opts:['4','5','6','7'], ans:1},
+      {q:'8 - 4 = ...', opts:['3','4','5','6'], ans:1},
+      {q:'5 - 5 = ...', opts:['0','1','2','5'], ans:0},
+      {q:'Jika 7 + 3 = 10, maka 10 - 7 = ...', opts:['1','2','3','4'], ans:2},
+      {q:'Jika 7 + 3 = 10, maka 10 - 3 = ...', opts:['5','6','7','8'], ans:2},
+      {q:'Jika 2 + 4 = 6, maka 6 - a = 2, nilai a adalah...', opts:['2','3','4','5'], ans:2},
+      {q:'🐠🐠🐠🐠 + 🐠🐠🐠🐠🐠 = ... Shareen membeli 4 buku tulis, ayah membawa 5 buku tulis lagi. Jumlah buku Shareen ada...', opts:['8','9','10','11'], ans:1},
+      {q:'Tyo menyalakan 6 lilin. Karena tertiup angin, 3 lilin mati. Sisa lilin yang masih menyala ada...', opts:['2','3','4','5'], ans:1},
+      {q:'Penjumlahan bilangan ganda 4 + 4 hasilnya...', opts:['6','7','8','9'], ans:2},
+      {q:'Jika 6 - 2 = 4, maka bentuk penjumlahannya adalah...', opts:['2 + 4 = 6','4 + 4 = 8','2 + 2 = 4','6 + 2 = 8'], ans:0},
+    ],
+    short:[
+      {q:'4 + 3 = ...?', ans:'7', accept:['7']},
+      {q:'5 + 3 = ...?', ans:'8', accept:['8']},
+      {q:'8 + 2 = ...?', ans:'10', accept:['10']},
+      {q:'6 - 2 = ...?', ans:'4', accept:['4']},
+      {q:'7 - 2 = ...?', ans:'5', accept:['5']},
+      {q:'5 - 5 = ...?', ans:'0', accept:['0']},
+      {q:'3 + ... = 4, isi titik-titik dengan angka yang tepat!', ans:'1', accept:['1']},
+      {q:'Jika 7 + 3 = 10, maka 10 - 7 = ...?', ans:'3', accept:['3']},
+      {q:'Shareen membeli 4 buku tulis, ayah membawa 5 buku tulis lagi. Jumlah seluruh buku Shareen ada...?', ans:'9', accept:['9']},
+      {q:'Tyo menyalakan 6 lilin, 3 lilin mati tertiup angin. Sisa lilin yang masih menyala ada...?', ans:'3', accept:['3']},
+    ]
+  },
+  {
+    id:'pkn', name:'Pancasila', color:'var(--pkn)',
+    subtitle:'Sumatif Harian — Pancasila Bab I',
+    mc:[
+      {q:'Lambang negara Indonesia adalah...', img:'🦅', opts:['Garuda Pancasila','Bendera Merah Putih','Peta Indonesia','Burung Cendrawasih'], ans:0},
+      {q:'Garuda Pancasila melambangkan...', opts:['kelembutan','kekuatan','kesedihan','kemalasan'], ans:1},
+      {q:'Tulisan pada pita yang dicengkeram Garuda adalah...', opts:['Merdeka atau Mati','Bhinneka Tunggal Ika','Pancasila Sakti','Garuda Indonesia'], ans:1},
+      {q:'Arti Bhinneka Tunggal Ika adalah...', opts:['satu untuk semua','berbeda-beda tetapi tetap satu','bersatu kita teguh','merdeka selamanya'], ans:1},
+      {q:'Simbol bintang ⭐ melambangkan sila ke...', opts:['1','2','3','4'], ans:0},
+      {q:'Simbol pohon beringin melambangkan sila ke...', opts:['1','2','3','4'], ans:2},
+      {q:'Simbol kepala banteng melambangkan sila ke...', opts:['2','3','4','5'], ans:2},
+      {q:'Simbol padi dan kapas melambangkan sila ke...', opts:['3','4','5','1'], ans:2},
+      {q:'Simbol rantai melambangkan sila ke...', opts:['1','2','3','4'], ans:1},
+      {q:'Jumlah bulu di sayap Garuda Pancasila ada...', opts:['17','19','8','45'], ans:0},
+      {q:'Jumlah bulu di ekor Garuda Pancasila ada...', opts:['17','19','8','45'], ans:2},
+      {q:'Jumlah bulu di pangkal ekor Garuda Pancasila ada...', opts:['17','19','8','45'], ans:1},
+      {q:'Jumlah bulu di leher Garuda Pancasila ada...', opts:['17','19','8','45'], ans:3},
+      {q:'Jika digabungkan, jumlah bulu Garuda melambangkan tanggal...', opts:['17-08-1945','01-06-1945','28-10-1928','10-11-1945'], ans:0},
+      {q:'Contoh penerapan sila ke-1 adalah...', opts:['bermusyawarah','shalat','menolong teman','berbagi'], ans:1},
+      {q:'Contoh penerapan sila ke-2 adalah...', opts:['shalat','saling tolong menolong','upacara bendera','bermusyawarah'], ans:1},
+      {q:'Contoh penerapan sila ke-3 adalah...', opts:['shalat','berbagi','bangga menggunakan barang dalam negeri','bermusyawarah'], ans:2},
+      {q:'Contoh penerapan sila ke-4 adalah...', opts:['shalat','bermusyawarah','berbagi','menolong teman'], ans:1},
+      {q:'Bendera negara Indonesia disebut juga Sang Dwi Warna yang artinya...', opts:['satu warna','dua warna','tiga warna','banyak warna'], ans:1},
+      {q:'Lagu kebangsaan Indonesia diciptakan oleh...', opts:['Ibu Fatmawati','W.R Supratman','Ir. Soekarno','Ki Hajar Dewantara'], ans:1},
+    ],
+    short:[
+      {q:'Apa nama lambang negara Indonesia?', ans:'Garuda Pancasila', accept:['garuda pancasila','garuda']},
+      {q:'Apa arti Bhinneka Tunggal Ika?', ans:'berbeda-beda tetapi tetap satu', accept:['berbeda','tetap satu']},
+      {q:'Berapa jumlah bulu di sayap Garuda Pancasila?', ans:'17', accept:['17']},
+      {q:'Berapa jumlah bulu di leher Garuda Pancasila?', ans:'45', accept:['45']},
+      {q:'Siapa tokoh yang menjahit bendera merah putih?', ans:'Ibu Fatmawati Soekarno', accept:['fatmawati']},
+      {q:'Apa arti warna merah pada bendera Indonesia?', ans:'berani', accept:['berani']},
+      {q:'Apa arti warna putih pada bendera Indonesia?', ans:'suci / bersih', accept:['suci','bersih']},
+      {q:'Apa judul lagu kebangsaan Indonesia?', ans:'Indonesia Raya', accept:['indonesia raya']},
+      {q:'Siapa pencipta lagu Indonesia Raya?', ans:'W.R Supratman', accept:['supratman']},
+      {q:'Sebutkan 1 contoh penerapan sila ke-5!', ans:'berbagi dengan teman yang sedang membutuhkan', accept:['berbagi']},
+    ]
+  }
+];
+
+/* ---------------- STATE ---------------- */
+let studentName = '';
+let activeTab = SUBJECTS[0].id;
+let results = {}; // subjectId -> {score, done}
+
+function startApp(){
+  const val = document.getElementById('nameInput').value.trim();
+  if(!val){
+    alert('Yuk, isi nama kamu dulu sebelum mulai mengerjakan! 😊');
+    return;
+  }
+  studentName = val;
+  document.getElementById('cover').classList.add('hidden');
+  document.getElementById('appArea').classList.remove('hidden');
+  renderTabs();
+  renderSheet(activeTab);
+}
+
+function renderTabs(){
+  const bar = document.getElementById('tabbar');
+  bar.innerHTML = '';
+  SUBJECTS.forEach(s=>{
+    const btn = document.createElement('button');
+    btn.className = 'tab-btn' + (s.id===activeTab ? ' active':'') + (results[s.id] && results[s.id].done ? ' done':'');
+    btn.innerHTML = '<span class="dot" style="background:'+s.color+'"></span>'+s.name;
+    btn.onclick = ()=>{ activeTab = s.id; renderTabs(); renderSheet(s.id); };
+    bar.appendChild(btn);
+  });
+}
+
+function apreciationMessage(name, score){
+  if(score >= 90) return `Luar biasa, ${name}! 🌟 Kamu benar-benar menguasai materi ini!`;
+  if(score >= 75) return `Kerja bagus, ${name}! 👏 Sedikit lagi menuju sempurna!`;
+  if(score >= 60) return `Bagus, ${name}! 💪 Terus berlatih supaya makin jago ya!`;
+  if(score >= 40) return `Tetap semangat, ${name}! 📚 Yuk baca lagi rangkumannya dan coba sekali lagi!`;
+  return `Jangan menyerah, ${name}! 🌱 Setiap usaha adalah langkah menuju pintar. Coba lagi ya!`;
+}
+
+function starsFor(score){
+  const n = score>=90?5:score>=75?4:score>=60?3:score>=40?2:1;
+  return '⭐'.repeat(n) + '☆'.repeat(5-n);
+}
+
+function renderSheet(id){
+  const subj = SUBJECTS.find(s=>s.id===id);
+  const area = document.getElementById('sheetArea');
+  const already = results[id];
+
+  let html = `<div class="sheet">
+    <div class="sheet-head">
+      <h2>${subj.name}</h2>
+      <span class="badge" style="background:${subj.color}">30 Soal</span>
+    </div>
+    <div style="color:#847c6c; margin-top:-14px; margin-bottom:18px;">${subj.subtitle}</div>
+
+    <div class="result-box" id="result-${id}" style="background:${subj.color}"></div>
+
+    <form id="form-${id}" onsubmit="return false;">
+      <div class="section-label" style="background:${subj.color}">Bagian A — Pilihan Ganda (20 soal)</div>
+  `;
+
+  subj.mc.forEach((item, i)=>{
+    html += `<div class="qcard">
+      <div class="qtext"><span class="qnum">${i+1}.</span>${item.q}</div>
+      ${item.img ? `<div class="qimg">${item.img}</div>` : ''}
+      <div class="options" data-qtype="mc" data-qi="${i}">`;
+    const letters = ['A','B','C','D'];
+    item.opts.forEach((opt, oi)=>{
+      html += `<label class="opt" id="opt-${id}-${i}-${oi}">
+        <input type="radio" name="${id}-mc-${i}" value="${oi}">
+        <span><b>${letters[oi]}.</b> ${opt}</span>
+      </label>`;
+    });
+    html += `</div>
+      <div class="key-box" id="key-${id}-mc-${i}"></div>
+    </div>`;
+  });
+
+  html += `<div class="section-label" style="background:${subj.color}">Bagian B — Isian Singkat (10 soal)</div>`;
+
+  subj.short.forEach((item, i)=>{
+    html += `<div class="qcard">
+      <div class="qtext"><span class="qnum">${i+21}.</span>${item.q}</div>
+      <div class="short-answer">
+        <input type="text" id="short-${id}-${i}" placeholder="Tulis jawabanmu...">
+      </div>
+      <div class="key-box" id="key-${id}-short-${i}"></div>
+    </div>`;
+  });
+
+  html += `<div class="submit-row">
+      <button type="button" class="btn" style="background:${subj.color}" onclick="submitSheet('${id}')">Selesai &amp; Lihat Nilai</button>
+    </div>
+  </form>
+  </div>`;
+
+  area.innerHTML = html;
+
+  if(already && already.done){
+    showResult(id, already.score, false);
+    lockAndShowKeys(id, already.userAnswers);
+  }
+}
+
+function submitSheet(id){
+  const subj = SUBJECTS.find(s=>s.id===id);
+  let correct = 0;
+  const total = subj.mc.length + subj.short.length;
+  const userAnswers = {mc:[], short:[]};
+
+  subj.mc.forEach((item, i)=>{
+    const sel = document.querySelector(`input[name="${id}-mc-${i}"]:checked`);
+    const chosen = sel ? parseInt(sel.value) : -1;
+    userAnswers.mc.push(chosen);
+    if(chosen === item.ans) correct++;
+  });
+
+  subj.short.forEach((item, i)=>{
+    const inp = document.getElementById(`short-${id}-${i}`);
+    const val = (inp.value || '').trim().toLowerCase();
+    userAnswers.short.push(inp.value || '');
+    const ok = item.accept.some(a => val.includes(a.toLowerCase()) && val.length>0);
+    if(ok) correct++;
+  });
+
+  let score = Math.round((correct/total)*100);
+  if(score < 1) score = 1;
+  if(score > 100) score = 100;
+
+  results[id] = {done:true, score:score, userAnswers:userAnswers};
+
+  showResult(id, score, true);
+  lockAndShowKeys(id, userAnswers);
+  renderTabs();
+}
+
+function showResult(id, score, animate){
+  const subj = SUBJECTS.find(s=>s.id===id);
+  const box = document.getElementById(`result-${id}`);
+  box.innerHTML = `
+    <div class="result-name">Nama: ${studentName}</div>
+    <div class="result-score">${score} / 100</div>
+    <div class="stars">${starsFor(score)}</div>
+    <div class="result-msg">${apreciationMessage(studentName, score)}</div>
+  `;
+  box.classList.add('show');
+  box.scrollIntoView({behavior:'smooth', block:'start'});
+}
+
+function lockAndShowKeys(id, userAnswers){
+  const subj = SUBJECTS.find(s=>s.id===id);
+
+  subj.mc.forEach((item, i)=>{
+    // disable inputs
+    document.querySelectorAll(`input[name="${id}-mc-${i}"]`).forEach(inp=> inp.disabled = true);
+    const chosen = userAnswers.mc[i];
+    const letters = ['A','B','C','D'];
+    // highlight
+    item.opts.forEach((opt, oi)=>{
+      const el = document.getElementById(`opt-${id}-${i}-${oi}`);
+      if(oi === item.ans) el.classList.add('correct');
+      if(oi === chosen && chosen !== item.ans) el.classList.add('wrong');
+    });
+    const kb = document.getElementById(`key-${id}-mc-${i}`);
+    if(chosen === item.ans){
+      kb.className = 'key-box show key-ok';
+      kb.innerHTML = `✅ Benar! Jawaban: <b>${letters[item.ans]}. ${item.opts[item.ans]}</b>`;
+    } else {
+      kb.className = 'key-box show key-bad';
+      kb.innerHTML = `❌ Kunci jawaban: <b>${letters[item.ans]}. ${item.opts[item.ans]}</b>`;
+    }
+  });
+
+  subj.short.forEach((item, i)=>{
+    const inp = document.getElementById(`short-${id}-${i}`);
+    inp.disabled = true;
+    const val = (userAnswers.short[i] || '').trim().toLowerCase();
+    const ok = item.accept.some(a => val.includes(a.toLowerCase()) && val.length>0);
+    const kb = document.getElementById(`key-${id}-short-${i}`);
+    if(ok){
+      kb.className = 'key-box show key-ok';
+      kb.innerHTML = `✅ Jawabanmu benar! (Kunci: <b>${item.ans}</b>)`;
+    } else {
+      kb.className = 'key-box show key-bad';
+      kb.innerHTML = `❌ Kunci jawaban: <b>${item.ans}</b>`;
+    }
+  });
+
+  // hide submit button
+  const formEl = document.getElementById(`form-${id}`);
+  const submitBtn = formEl.querySelector('.submit-row');
+  if(submitBtn) submitBtn.style.display = 'none';
+}
+</script>
+</body>
+</html>
